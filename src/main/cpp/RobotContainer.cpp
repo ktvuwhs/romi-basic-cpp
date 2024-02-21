@@ -30,21 +30,21 @@ void RobotContainer::ConfigureBindings() {
   // Schedule `ExampleMethodCommand` when the Xbox controller's B button is
   // pressed, cancelling on release.
   // m_driverController.B().WhileTrue(m_subsystem.ExampleMethodCommand());
-
+  m_driverController.Cross().OnTrue(GetDriveUntilDistCommand(units::meter_t(0.1)).ToPtr());
 
 }
 
 frc2::CommandPtr RobotContainer::GetAutonomousCommand() {
   // An example command will be run in autonomous
-  return autos::ExampleAuto(&m_subsystem);
+  return GetDriveUntilDistCommand(units::meter_t(0.1)).ToPtr();
 }
 
 frc2::RunCommand RobotContainer::GetArcadeDriveCommand() {
   return frc2::RunCommand(
     [this] {
       m_drive.ArcadeDrive(
-        frc::ApplyDeadband<double>(-m_driverController.GetLeftY(), kDeadBand),
-        frc::ApplyDeadband<double>(m_driverController.GetRightX(), kDeadBand));
+        -m_driverController.GetLeftY(),
+        -m_driverController.GetRightX());
     },
     {&m_drive}
   );
