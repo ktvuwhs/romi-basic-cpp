@@ -11,7 +11,7 @@
 
 RobotContainer::RobotContainer() {
   // Initialize all of your commands and subsystems here
-  m_drive = Drivetrain();
+  // m_drive = Drivetrain();  // don't initialize this here as the constructor is called again and duplicates assignment of hardware to pins
   // Configure the button bindings
   ConfigureBindings();
 }
