@@ -4,6 +4,7 @@
 
 #include "RobotContainer.h"
 
+#include <frc/MathUtil.h>
 #include <frc2/command/button/Trigger.h>
 
 #include "commands/Autos.h"
@@ -42,8 +43,8 @@ frc2::RunCommand RobotContainer::GetArcadeDriveCommand() {
   return frc2::RunCommand(
     [this] {
       m_drive.ArcadeDrive(
-        -m_driverController.GetLeftY(),
-        m_driverController.GetRightX());
+        frc::ApplyDeadband<double>(-m_driverController.GetLeftY(), kDeadBand),
+        frc::ApplyDeadband<double>(m_driverController.GetRightX(), kDeadBand));
     },
     {&m_drive}
   );

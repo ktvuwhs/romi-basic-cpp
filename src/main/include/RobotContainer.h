@@ -29,6 +29,7 @@ class RobotContainer {
   frc2::CommandPtr GetAutonomousCommand();
 
  private:
+  static constexpr int kDeadBand = 10;
   frc2::RunCommand GetArcadeDriveCommand();
   frc2::FunctionalCommand GetDriveUntilDistCommand(units::meter_t dist);
   
